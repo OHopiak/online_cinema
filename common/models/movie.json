@@ -1,0 +1,33 @@
+{
+  "name": "movie",
+  "plural": "movies",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "genre": {
+      "type": "string",
+      "default": "Other"
+    },
+    "uploaded": {
+      "type": "date",
+      "required": true
+    },
+    "video": {
+      "type": "string"
+    },
+    "poster": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
