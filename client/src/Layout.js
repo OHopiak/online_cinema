@@ -1,21 +1,22 @@
 import React from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from '@material-ui/icons/Menu';
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Movies from "./component/Movies";
+import MoviesDetails from "./component/MoviesDetails";
+import GlobalStyles from "./styles/GlobalStyles";
+import Header from "./component/Header";
+
 
 const Layout = () => (
-	<div>
-		<AppBar position="static">
-			<Toolbar>
-				<IconButton color="inherit" aria-label="Menu">
-					<MenuIcon/>
-				</IconButton>
-			</Toolbar>
-		</AppBar>
-		<Movies/>
-	</div>
+	<Router>
+		<>
+			<GlobalStyles/>
+			<Header/>
+			<Switch>
+				<Route path='/' exact component={Movies}/>
+				<Route path='/watch/:id' exact component={MoviesDetails}/>
+			</Switch>
+		</>
+	</Router>
 );
 
 export default Layout;
