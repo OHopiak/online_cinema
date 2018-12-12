@@ -16,6 +16,9 @@ const style = theme => ({
         // width: '100%',
         // height: '400px',
     },
+    video_wrapper:{
+      margin: '0 auto'
+    },
     video_block: {
         display: 'flex',
         alignItems: 'center',
@@ -29,6 +32,7 @@ const style = theme => ({
         margin: '0 0 0 10px',
         fontWeight: 100,
     }
+    ,
 
 });
 
@@ -56,13 +60,13 @@ class MoviesDetails extends React.Component {
         const {classes} = this.props;
         const video = attachmentUrl('movies', movie.video);
         return (
-            <div className={classes.root}>
+            <div className={classes.root} >
                 <Typography gutterBottom variant="h3">
                     Video player
                 </Typography>
                 <Grid container
                 >
-                    <Grid item sm={12}>
+                    <Grid item sm={12} md={8} xl={8} className={classes.video_wrapper}>
                         <Paper className={classes.video}>
                             {movie.video &&
                             <VideoPlayer video={video}
