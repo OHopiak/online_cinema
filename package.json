@@ -9,10 +9,11 @@
     "lint": "eslint .",
     "client": "cd client && yarn start",
     "start": "nodemon --ignore client/ --ignore files/ .",
-    "dev": "concurrently --kill-others-on-fail 'yarn start' 'yarn client'",
+    "dev": "concurrently --kill-others-on-fail 'npm run start' 'npm run client'",
     "posttest": "npm run lint"
   },
   "dependencies": {
+    "aos": "^2.3.4",
     "compression": "^1.0.3",
     "cors": "^2.5.2",
     "helmet": "^3.10.0",
@@ -20,6 +21,7 @@
     "loopback-boot": "^2.6.5",
     "loopback-component-explorer": "^6.2.0",
     "loopback-component-storage": "^3.5.0",
+    "moment": "^2.22.2",
     "serve-favicon": "^2.0.1",
     "strong-error-handler": "^3.0.0"
   },

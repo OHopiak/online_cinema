@@ -7,71 +7,79 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import {Link} from "react-router-dom";
+import AOS from 'aos'
+import 'aos/dist/aos.css';
 
 const style = theme => ({
-	root: {
-		padding: theme.spacing.unit * 2,
-	},
-	item: {
-		padding: theme.spacing.unit,
-	},
-	media: {
-		height: 200,
-		objectFit: 'cover',
-		objectPosition: '0 20%'
-	},
+    root: {
+        padding: theme.spacing.unit * 2,
+    },
+    item: {
+        padding: theme.spacing.unit,
+    },
+    media: {
+        height: 200,
+        objectFit: 'cover',
+        objectPosition: '0 20%'
+    },
 });
 
 class Movies extends React.Component {
-	state = {
-		response: '',
-	};
+    state = {
+        response: '',
+    };
 
-	componentDidMount() {
-		this.callApi('/api/movies')
-			.then(response => this.setState({response}))
-			.catch(err => console.log(err));
-	}
+    componentDidMount() {
+        AOS.init();
+        this.callApi('/api/movies')
+            .then(response => this.setState({response}))
+            .catch(err => console.log(err));
+    }
 
-	callApi = async (url) => {
-		const response = await fetch(url);
-		const body = await response.json();
-		if (response.status !== 200) throw Error(body.message);
-		return body;
-	};
+    callApi = async (url) => {
+        const response = await fetch(url);
+        const body = await response.json();
+        if (response.status !== 200) throw Error(body.message);
+        return body;
+    };
 
-	render() {
-		const {response} = this.state;
-		const {classes} = this.props;
-		const posterUrl = '/api/attachments/posters/download/';
-		return (
-			<Grid container className={classes.root}>
-				{response && response.map(movie => (
-					<Grid item sm={4} key={movie.id} className={classes.item}>
-						<Card>
-							<Link to={`/watch/${movie.id}`}>
-								<CardActionArea>
-									<CardMedia
-										component="img"
-										src={posterUrl + movie.poster}
-										alt={movie.name}
-										className={classes.media}
-										height={140}
-										title={movie.name}
-									/>
-									<CardContent>
-										<Typography gutterBottom variant="body1">
-											{movie.name}
-										</Typography>
-									</CardContent>
-								</CardActionArea>
-							</Link>
-						</Card>
-					</Grid>
-				))}
-			</Grid>
-		)
-	}
+    render() {
+        const {response} = this.state;
+        const {classes} = this.props;
+        const posterUrl = '/api/attachments/posters/download/';
+        return (
+            <Grid container className={classes.root}>
+                {response && response.map((movie, key) => (
+                    <Grid item sm={4} key={movie.id} className={classes.item}
+                          data-aos="fade-up"
+                          data-aos-delay={150 * key}
+                          data-aos-duration="500"
+                          data-aos-easing="ease-in-out"
+                    >
+                        <Card>
+                            <Link to={`/watch/${movie.id}`}>
+                                <CardActionArea>
+                                    <CardMedia
+                                        component="img"
+                                        src={posterUrl + movie.poster}
+                                        alt={movie.name}
+                                        className={classes.media}
+                                        height={140}
+                                        title={movie.name}
+                                    />
+                                    <CardContent>
+                                        <Typography gutterBottom variant="body1">
+                                            {movie.name}
+                                        </Typography>
+                                    </CardContent>
+                                </CardActionArea>
+                            </Link>
+                        </Card>
+                    </Grid>
+                ))}
+            </Grid>
+        )
+    }
 }
 
 export default withStyles(style)(Movies);
